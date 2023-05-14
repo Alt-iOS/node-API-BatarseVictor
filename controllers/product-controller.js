@@ -26,7 +26,7 @@ function createProduct(req, res){
         id: req.body.id,
         name: req.body.name,
         description: req.body.description,
-        price: req.body.price,
+        price: Number.parseFloat(req.body.price *1.16).toFixed(2), //16% de IVA
 
     });
     product
@@ -83,6 +83,9 @@ function findProductByIdAndRemove(req, res){
 
 function findProductByIdAndUpdate(req, res){
     const id= req.params.id;
+    if(req.body.price){
+        req.body.price = Number.parseFloat(req.body.price *1.16).toFixed(2)
+    }
     Product.findByIdAndUpdate(id, req.body).then((data) => {
         if(!data)
             res

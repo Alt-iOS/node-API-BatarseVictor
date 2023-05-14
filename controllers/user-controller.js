@@ -105,7 +105,9 @@ function login(req, res){
                 .status(404).send({
                 message: "Error with the username or password",
             });
-        else res.send(data);
+        else res.status(200).send({
+            message: "Successful login"
+        })
     })
         .catch((error) => {
             return res.status(500).json({
