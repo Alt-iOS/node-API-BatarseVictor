@@ -21,7 +21,6 @@ function findAllUsers(req, res){
 
 function createUser(req, res){
     console.log("Creating a user...");
-    console.log(req.body);
     let user = new User({
         id: req.body.id,
         name: req.body.name,
@@ -98,8 +97,25 @@ function findUserByIdAndUpdate(req, res){
     });
 }
 
+function login(req, res){
+    const { name, password } = req.body
+    User.findOne({name, password }).then((data) => {
+        if(!data)
+            res
+                .status(404).send({
+                message: "Error with the username or password",
+            });
+        else res.send(data);
+    })
+        .catch((error) => {
+            return res.status(500).json({
+                message: "An error occurred"
+            });
+        });
+}
 
 module.exports = {
+    login,
     findAllUsers,
     createUser,
     findUserById,
