@@ -14,5 +14,5 @@ router.post("/products", productController.createProduct);
 router.get("/products/:id", productController.findProductById);
 router.delete("/products/:id", productController.findProductByIdAndRemove);
 router.put("/products/:id", productController.findProductByIdAndUpdate);
-router.get("/login",userController.login);
+router.post("/login",userController.login);
 module.exports = router;
