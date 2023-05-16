@@ -27,7 +27,6 @@ async function createUser(req, res) {
     }
 
     let user = new User({
-        id: req.body.id,
         name: req.body.name,
         email: req.body.email,
         password: req.body.password,
