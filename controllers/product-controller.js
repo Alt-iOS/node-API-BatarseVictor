@@ -81,13 +81,16 @@ function findProductByIdAndRemove(req, res){
         });
 }
 
-function findProductByIdAndUpdate(req, res){
-    const id= req.params.id;
-    if(req.body.price){
+async function findProductByIdAndUpdate(req, res) {
+    const id = req.params.id;
+    const oldObject = (await Product.findById(id).exec()).toObject();
+    if(oldObject.price === req.body.price){
+        delete req.body.price;
+    } else{
         req.body.price = Number.parseFloat(req.body.price *1.16).toFixed(2)
     }
     Product.findByIdAndUpdate(id, req.body).then((data) => {
-        if(!data)
+        if (!data)
             res
                 .status(404).send({
                 message: "Not found" + id,
