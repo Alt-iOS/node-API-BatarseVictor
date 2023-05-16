@@ -21,14 +21,15 @@ function findAllUsers(req, res){
 
 async function createUser(req, res) {
     console.log("Creating a user...");
-    const oldUser = await User.findOne(req.body.email);
+    const email = req.body.email.toLowerCase();
+    const oldUser = await User.findOne({email});
     if (oldUser) {
         return res.status(409).send("User Already Exist. Please Login");
     }
 
     let user = new User({
         name: req.body.name,
-        email: req.body.email,
+        email: email,
         password: req.body.password,
     });
 
