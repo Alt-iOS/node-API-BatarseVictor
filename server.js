@@ -1,5 +1,5 @@
-require("dotenv").config()
-const cors = require("cors")
+require("dotenv").config();
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 
@@ -7,7 +7,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //Conexión a la BD
-mongoose.connect(process.env.DB_URL, {useNewUrlParser: true});
+mongoose.connect(process.env.DB_URL);
 const db = mongoose.connection;
 
 //Setear manejo de eventos
@@ -26,4 +26,6 @@ port = process.env.PORT || 3001;
 app.use("/", require("./routes/routes"));
 
 //Iniciar el servidor
-app.listen(port, () => console.log("El servidor esta escuchando en el puerto: " + process.env.PORT));
+app.listen(port, () =>
+  console.log("El servidor esta escuchando en el puerto: " + port),
+);
